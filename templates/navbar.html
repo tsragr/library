@@ -1,0 +1,34 @@
+{% load static %}
+{% url 'library:home' as path_to_home %}
+{% url 'library:from-file' as path_to_from_file %}
+{% url 'profiles:my' as path_to_my_profiles %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href=""><img src="{% static 'book-logo.png' %}" class="logo-sm"></a>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == path_to_home %}active{% endif %}" href="{{path_to_home}}">Library</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == path_to_from_file %}active{% endif %}" href="{{path_to_from_file}}">Add csv file</a>
+                </li>
+            </ul>
+        </div>
+        {% if request.user.is_authenticated %}
+        <div class="nav-item dropdown">
+            <div class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                 aria-expanded="false">
+                <img src="{{ request.user.profile.avatar.url }}" class="avatar-sm">&nbsp;{{request.user}}
+            </div>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item {% if request.path == path_to_my_profiles %}active{% endif %}" href="{{path_to_my_profiles}}">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</nav>

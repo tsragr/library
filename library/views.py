@@ -12,6 +12,7 @@ from django.core.paginator import Paginator
 
 @login_required
 def home_view(request):
+    """ Отображение главной страницы """
     order = request.GET.get('sort')
     if order is not None:
         books = Book.objects.order_by(order)
@@ -30,11 +31,13 @@ def home_view(request):
 
 
 class UploadTemplateView(LoginRequiredMixin, TemplateView):
+    """ Отображение страницы загрузки файла """
     template_name = 'library/from_file.html'
 
 
 @login_required
 def csv_upload_view(request):
+    """ Загрузка CSV файла """
     if request.method == 'POST':
         csv_file_name = request.FILES.get('file').name
         csv_file = request.FILES.get('file')

@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 @login_required
 def my_profile_view(request):
+    """ Отображение страницы профиля """
     profile = Profile.objects.get(user=request.user)
     form = ProfileForm(request.POST or None, request.FILES or None, instance=profile)
     confirm = False

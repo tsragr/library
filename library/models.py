@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Author(models.Model):
+    """ Модуель Автора"""
     name = models.CharField(max_length=100)
     birthday = models.IntegerField()
 
@@ -10,6 +11,7 @@ class Author(models.Model):
 
 
 class Book(models.Model):
+    """ Модуель Книги"""
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
     title = models.CharField(max_length=120)
     date = models.IntegerField()
@@ -19,6 +21,7 @@ class Book(models.Model):
 
 
 class CSV(models.Model):
+    """ Модуель Файла"""
     file_name = models.CharField(max_length=120, null=True)
     csv_file = models.FileField(upload_to='csvs', null=True)
     created = models.DateTimeField(auto_now_add=True)
